@@ -1,0 +1,16 @@
+ID      Name                    Email               Phone               Address             Service             Bill
+1       Nguyen Van Hieu         nvh@gmail.com       0963699999          Ha Noi              Mat xa              1.000.000 VND 
+2       Tran Van Hoan           tvh@gmail.com       0366388888          Hai Phong           Cat toc             100.000 VND 
+3       Trinh Van Quyet         tvq@gmail.com       0873123123          Ha Nam              Xong hoi            1.300.000 VND 
+4       Phung Thanh Do          ptd@gmail.com       0333678999          Cao Bang            Mat xa              2.000.000 VND 
+5       Le Thanh Tam            ltt@gmail.com       0987363777          Da Nang             Phun Moi            1.500.000 VND 
+6       Nguyen Van Tuan         nvt@gmail.com       0373123123          Vinh Phuc           Nhuom toc           200.000 VND 
+7       Tran Thi Huong Ly       tthl@gmail.com      0936111121          Hai Duong           Lam Nail            700.000 VND 
+8       Do My Linh              dml@gmail.com       0345227698          Phu Tho             Peel da             1.200.000 VND 
+9       Nguyen Hoang Anh        nha@gmail.com       0332123712          Ha Noi              Tay da chet         650.000 VND 
+10      Le Thi Anh              lta@gmail.com       0927668712          Nam Dinh            Tri Nam             970.000 VND 
+11      Kim Tuan Hung           kth@gmail.com       0987999888          Thai Binh           Triet long chan     1.300.000 VND 
+12      Nguyen Thi Thuy Dung    nttd@gmail.com      0372777456          Vinh Phuc           Tay te bao chet     2.100.000 VND 
+13      Phung Van Hoan          pvh@gmail.com       0987444444          Ha Tinh             Triet long nach     1.000.000 VND 
+14      Kim Tuan Kien           ktk@gmail.com       0367698375          Vinh Phuc           Xam Trieu Tu Long   1.000.000 VND 
+15      Ha Dang Quang           hdq@gmail.com       0987999999          Vinh Phuc           Triet long vung kin 2.000.000 VND
