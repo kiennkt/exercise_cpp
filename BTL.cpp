@@ -103,12 +103,14 @@ public:
         this->pHead = NULL;
         this->pTail = NULL;
     }
-    bool IsEmpty() { // Ham check Danh sach co rong hay khong
+    // Hàm kiểm tra danh sách có rỗng hay không?
+    bool IsEmpty() {
         if (this->pHead == NULL) return true;
         else return false;
     }
-    void ThemCuoi(NODE* p) { // Ham them 1 node vao cuoi danh sach
-        if (this->pHead == NULL) { // Neu list rong
+    // Hàm thêm 1 NODE vào cuối danh sách 
+    void ThemCuoi(NODE* p) { 
+        if (this->pHead == NULL) {
             this->pHead = this->pTail = p;
         }
         else {
@@ -116,15 +118,14 @@ public:
             this->pTail = p;
         }
     }
-    // Ham xoa NODE dau tien
+    // Hàm xóa NODE đầu tiên
     void DeleteFirst() {
-        // Neu Danh sach dang rong tra ve list
         if (this->pHead == NULL) {
             return;
         }
-        NODE* p = this->pHead;     // Gan 1 node p cho node dau
-        this->pHead = this->pHead->pNext; // Gan node dau = node sau
-        delete p; // Xoa node p la node dau tien di => node sai chinh la node dau tien
+        NODE* p = this->pHead;
+        this->pHead = this->pHead->pNext; 
+        delete p;
     }
     void DeletaLast() {
         if (this->pHead == NULL) {
@@ -142,7 +143,7 @@ public:
             }
         }
     }
-    // Ham dem so phan tu node co trong LIST
+    // Hàm đếm số phần tử trong danh sách liên kết
     int SoPhanTu() {
         int dem = 0;
         for (NODE* k = this->pHead; k != NULL; k = k->pNext) {
@@ -150,16 +151,16 @@ public:
         }
         return dem;
     }
-    // Ham giai phong bo nho cho LIST
+    // Hàm giải phóng bộ nhớ cho danh sách liên kết
     void ClearList() {
         NODE* k = new NODE();
         while (this->pHead != NULL) {
-            k = this->pHead; // Gan node k vao vi tri dau de xoa sau  khi cho pHead tro toi node tiep theo, khong phat sinh loi
+            k = this->pHead; 
             this->pHead = this->pHead->pNext;
             delete k;
         }
     }
-    // Ham xuat du lieu trong LIST 
+    // Hàm xuất ra danh sách trong LIST
     void Export_DS();
 
 };
@@ -306,6 +307,7 @@ void Export_Titles(ofstream& fileout) {
     fileout << left << setw(size_Service) << "Service";
     fileout << "Bill";
 }
+
 // Hàm thêm thông tin 1 customer ra FILE
 void Add_Inf_1_Customer(ofstream& fileout, LIST& l) {
     l.pTail->data.setID(l.SoPhanTu());
@@ -338,6 +340,7 @@ void Write_Data_To_Save_In_File(LIST& l) {
     fileout.close();
 }
 // Hàm đọc dữ liệu từ FILE
+
 void Read_Data_From_File(LIST& l) {
     ifstream filein;
     filein.open("data.txt", ios::in);
@@ -346,17 +349,16 @@ void Read_Data_From_File(LIST& l) {
     Save_Data_From_File_To_LIST(filein, l);
     filein.close();
 }
-//-------------Xóa thông tin khách hàng---------------
 
 //-------------Sửa thông tin khách hàng---------------
-// void Modify_ID(LIST& l, LIST& check, int ID) {
-//     for (NODE* k = l.pHead; k != NULL; k = k->pNext) {
-//         if (k->data.getID() == check->) {
-//             k->data.setID(ID);
-//         }
-//     }
-//     Write_Data_To_Save_In_File(l);
-// }
+void Modify_ID(LIST& l, LIST& check, int ID) {
+    for (NODE* k = l.pHead; k != NULL; k = k->pNext) {
+        if (k->data.getID() == check.pHead->data.getID()) {
+            k->data.setID(ID);
+        }
+    }
+    Write_Data_To_Save_In_File(l);
+}
 void Modify_Name(LIST& l, LIST& check, string Name) {
     for (NODE* k = l.pHead; k != NULL; k = k->pNext) {
         if (strcmp(k->data.getName().c_str(), check.pHead->data.getName().c_str()) == 0) {
@@ -412,7 +414,7 @@ void Modify_Bill(LIST& l, LIST& check, string Bill) {
 }
 
 void Menu_Find_Customer_Inf(LIST l);
-void Edit_Customer_Inf(LIST l, LIST check) {
+void Edit_Customer_Inf(LIST& l, LIST& check) {
     int ID_Fix;
     string Name_Fix, Email_Fix, Phone_Fix, Address_Fix, Service_Fix, Bill_Fix;
     int option;
@@ -441,12 +443,12 @@ void Edit_Customer_Inf(LIST l, LIST check) {
             Menu_Find_Customer_Inf(l);
             break;
         }
-              // case 1: {
-              //     cout << "\n\t\tBạn muốn sửa ID thành: ";
-              //     cin >> ID_Fix;
-              //     Modify_ID(l, check, ID_Fix);
-              //     break;
-              // }
+              case 1: {
+                  cout << "\n\t\tBạn muốn sửa ID thành: ";
+                  cin >> ID_Fix;
+                  Modify_ID(l, check, ID_Fix);
+                  break;
+              }
         case 2: {
             cout << "\n\t\tBạn muốn sửa Tên thành: ";
             getline(cin, Name_Fix);
@@ -752,6 +754,7 @@ void Swap(Customer& a, Customer& b) {
     a = b;
     b = tmp;
 }
+
 // hàm sắp xếp thông tin khách hàng theo ID từ nhỏ đến lớn
 void Sort_ID_Customer_Inf_1(LIST& l) {
     for (NODE* k = l.pHead; k != NULL; k = k->pNext) {
@@ -765,6 +768,7 @@ void Sort_ID_Customer_Inf_1(LIST& l) {
     }
     Write_Data_To_Save_In_File(l);
 }
+
 // hàm sắp xếp thông tin khách hàng theo ID từ lớn đến nhỏ
 void Sort_ID_Customer_Inf_2(LIST& l) {
     for (NODE* k = l.pHead; k != NULL; k = k->pNext) {
@@ -780,19 +784,6 @@ void Sort_ID_Customer_Inf_2(LIST& l) {
 }
 //----------------------------------------------------
 
-bool Sort_Up(string x, string y) {
-    int length;
-    if (x.size() >= y.size()) {
-        length = y.size();
-    }
-    else length = x.size();
-    for (int i = 0; i < length; i++) {
-        if (x[i] - '0' > y[i] - '0') return false;
-        else if (x[i] - '0' < y[i] - '0') return true;
-        else continue;
-    }
-    return true;
-}
 // Hàm cắt chuỗi lấy họ
 string Cut_Last_Name(string x) {
     string res;
@@ -818,7 +809,7 @@ string Cut_Name(string x) {
             continue;
         }
         else {
-            res = x.substr(x.size() - c - 1);
+            res = x.substr(x.size() - c - 1, c);
             break;
         }
     }
@@ -826,31 +817,28 @@ string Cut_Name(string x) {
 }
 
 // hàm sắp xếp thông tin khách hàng theo tên từ (A->Z)
-void Sort_Name_Customer_Inf_1(LIST& l) {
+void Sort_Name_Customer_Inf_A_Z(LIST& l) {
     string Name_k, Name_p, Last_Name_k, Last_Name_p;
     for (NODE* k = l.pHead; k->pNext != NULL; k = k->pNext) {
         Name_k = Cut_Name(k->data.getName());
         Last_Name_k = Cut_Last_Name(k->data.getName());
+
         for (NODE* p = k->pNext; p != NULL; p = p->pNext) {
             Last_Name_p = Cut_Last_Name(p->data.getName());
             Name_p = Cut_Name(p->data.getName());
-            // if (strcmp(Name_k.c_str(), Name_p.c_str()) == 0) {
-            //     if (strcmp(Last_Name_k.c_str(), Last_Name_p.c_str()) > 0) {
-            //         Swap(k->data, p->data);
-            //     }
-            //     else if (strcmp(Last_Name_k.c_str(), Last_Name_p.c_str()) < 0) continue;
-            //     else continue;
-            // }
-            // else if (strcmp(Name_k.c_str(), Name_p.c_str()) > 0) {
-            //     Swap(k->data, p->data);
-            // }
-            // else continue;
-            if(Name_k > Name_p) Swap(k->data, p->data);
-            else if(Name_k == Name_p){
-                if(Last_Name_k > Last_Name_p){
+            if (strcmp(Name_k.c_str(), Name_p.c_str()) == 0) {
+                if (strcmp(Last_Name_k.c_str(), Last_Name_p.c_str()) > 0) {
                     Swap(k->data, p->data);
+                    Last_Name_k = Cut_Last_Name(k->data.getName());
+                    Last_Name_p = Cut_Last_Name(p->data.getName());
                 }
+                else if (strcmp(Last_Name_k.c_str(), Last_Name_p.c_str()) < 0) continue;
                 else continue;
+            }
+            else if (strcmp(Name_k.c_str(), Name_p.c_str()) > 0) {
+                Swap(k->data, p->data);
+                Name_k = Cut_Name(k->data.getName());
+                Name_p = Cut_Name(p->data.getName());
             }
             else continue;
         }
@@ -858,7 +846,36 @@ void Sort_Name_Customer_Inf_1(LIST& l) {
     Write_Data_To_Save_In_File(l);
 }
 
-
+// hàm sắp xếp thông tin khách hàng theo tên từ (Z->A)
+void Sort_Name_Customer_Inf_Z_A(LIST& l) {
+    string Name_k, Name_p, Last_Name_k, Last_Name_p;
+    for (NODE* k = l.pHead; k->pNext != NULL; k = k->pNext) {
+        Name_k = Cut_Name(k->data.getName());
+        Last_Name_k = Cut_Last_Name(k->data.getName());
+        
+        for (NODE* p = k->pNext; p != NULL; p = p->pNext) {
+            Last_Name_p = Cut_Last_Name(p->data.getName());
+            Name_p = Cut_Name(p->data.getName());
+            if (strcmp(Name_k.c_str(), Name_p.c_str()) == 0) {
+                if (strcmp(Last_Name_k.c_str(), Last_Name_p.c_str()) < 0) {
+                    Swap(k->data, p->data);
+                    Last_Name_k = Cut_Last_Name(k->data.getName());
+                    Last_Name_p = Cut_Last_Name(p->data.getName());
+                }
+                else if (strcmp(Last_Name_k.c_str(), Last_Name_p.c_str()) > 0) continue;
+                else continue;
+            }
+            else if (strcmp(Name_k.c_str(), Name_p.c_str()) < 0) {
+                Swap(k->data, p->data);
+                Name_k = Cut_Name(k->data.getName());
+                Name_p = Cut_Name(p->data.getName());
+            }
+            else continue;
+        }
+    }
+    Write_Data_To_Save_In_File(l);
+}
+//----------------------------------------------------
 
 // hàm xử lý xâu: chuyển xâu ban đầu sang dạng số nguyên
 long long ConVert_Money(string s) {
@@ -884,6 +901,7 @@ void Sort_Bill_Customer_Inf_S_B(LIST& l) {
     }
     Write_Data_To_Save_In_File(l);
 }
+
 // Hàm sắp xếp thông tin khách hàng theo Bill, từ lớn đến bé
 void Sort_Bill_Customer_Inf_B_S(LIST& l) {
     for (NODE* k = l.pHead; k->pNext != NULL; k = k->pNext) {
@@ -904,7 +922,7 @@ void MENU_Sort(LIST l) {
     int option;
     while (1) {
         system("cls");
-        cout << "\t\t|------------------SẮP XẾP--------------------|";
+        cout << "\t\t|------------------SẮP XẾP-------------------|";
         cout << "\n\t\t|         NHẬP CÁC LỰA CHỌN SAU              |";
         cout << "\n\t\t|      1. Sắp xếp theo ID từ nhỏ đến lớn     |";
         cout << "\n\t\t|      2. Sắp xếp theo ID từ lớn đến nhỏ     |";
@@ -923,21 +941,27 @@ void MENU_Sort(LIST l) {
             cout << "\n\t\tNhấn Enter để quay lại MENU: ";
             MENU(l);
             break;
-        }
+            }
         case 1: {
             Sort_ID_Customer_Inf_1(l);
             cout << "\n\t\tSẮP XẾP THÀNH CÔNG !";
             system("pause");
             break;
-        }
+            }
         case 2: {
             Sort_ID_Customer_Inf_2(l);
             cout << "\n\t\tSẮP XẾP THÀNH CÔNG !";
             system("pause");
             break;
-        }
+            }
         case 3: {
-            Sort_Name_Customer_Inf_1(l);
+            Sort_Name_Customer_Inf_A_Z(l);
+            cout << "\n\t\tSẮP XẾP THÀNH CÔNG !";
+            system("pause");
+            break;
+            }
+        case 4: {
+            Sort_Name_Customer_Inf_Z_A(l);
             cout << "\n\t\tSẮP XẾP THÀNH CÔNG !";
             system("pause");
             break;
@@ -947,13 +971,13 @@ void MENU_Sort(LIST l) {
             cout << "\n\t\tSẮP XẾP THÀNH CÔNG !";
             system("pause");
             break;
-        }
+            }
         case 6: {
             Sort_Bill_Customer_Inf_B_S(l);
             cout << "\n\t\tSẮP XẾP THÀNH CÔNG !";
             system("pause");
             break;
-        }
+            }
         }
     }
 }
@@ -999,7 +1023,6 @@ void MENU(LIST l) {
         case 2: {
             l.ClearList();
             Read_Data_From_File(l);
-
             ofstream fileout;
             fileout.open("data.txt", ios::app);
             Customer x;
@@ -1008,9 +1031,11 @@ void MENU(LIST l) {
             l.ThemCuoi(p);
             Add_Inf_1_Customer(fileout, l);
             fileout.close();
+            cout << "\n\t\tĐÃ THÊM THÀNH CÔNG !";
+            system("pause");
             break;
         }
-        case 3: { //  Ham xoa customer ra khoi FILE
+        case 3: {
             l.ClearList();
             Read_Data_From_File(l);
             ofstream fileout;
@@ -1018,6 +1043,8 @@ void MENU(LIST l) {
             l.DeletaLast();
             Export_Inf_Customer_To_File(fileout, l);
             fileout.close();
+            cout << "\n\t\tĐÃ XÓA THÀNH CÔNG !";
+            system("pause");
             break;
         }
         case 4: {
@@ -1031,11 +1058,11 @@ void MENU(LIST l) {
         }
     }
 }
+
 int main() {
     LIST l;
     Customer customer;
     Find_size_Between_Titles(size_ID, size_Name, size_Email, size_Phone, size_Address, size_Service, size_Bill);
     system("Color 0A");
     MENU(l);
-
 }
