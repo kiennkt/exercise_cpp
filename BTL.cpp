@@ -488,6 +488,15 @@ void Edit_Customer_Inf(LIST& l, LIST& check) {
         }
     }
 }
+void Remove_Customer_Inf(LIST& l, LIST check){
+    for(NODE* k = l.pHead; k != NULL; k = k->pNext){
+        if(check.SoPhanTu() == 1){
+            if(strcmp(check.pHead->data.getName().c_str(), k->data.getName().c_str())== 0)
+                NODE * p = new NODE(check.pHead->data);
+                    
+        }
+    }  
+};
 //-------------Tìm kiếm thông tin khách hàng -------
 // Hàm kiểm tra xem xâu nhập vào có bằng xâu trong FILE 
 bool Check_Search(string a, string b) {
@@ -507,6 +516,7 @@ void Change_Parameters(LIST& l, LIST& check) {
         cout << "\n\t\t|     MỜI BẠN NHẬP CÁC LỰA CHỌN        |";
         cout << "\n\t\t|  1. Hiển thị thông tin khách hàng    |";
         cout << "\n\t\t|  2. Sửa thông tin của khách hàng     |";
+        cout << "\n\t\t|  3. Xóa thông tin của khách hàng     |";
         cout << "\n\t\t|  0. Quay lai                         |";
         cout << "\n\t\t|----------------END-------------------|";
         cout << "\n\t\tNhập lựa chọn của bạn: ";
@@ -526,6 +536,9 @@ void Change_Parameters(LIST& l, LIST& check) {
         case 2: {
             Edit_Customer_Inf(l, check);
             break;
+        }
+        case 3: {
+
         }
         }
     }
